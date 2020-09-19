@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const axios = require('axios');
+const fetch = require('node-fetch');
 
 async function run() {
     try {
@@ -18,12 +18,12 @@ async function run() {
         });
 
         const diffUrl = data.data.diff_url
-        const res = await axios.get(diffUrl, {
+        const res = await fetch(diffUrl, {
             headers: {
                 'Accept': 'application/vnd.github.v3.diff'
             }
         })
-        console.log(res);
+        console.log(res.json());
 
         await client.issues.createComment({
             owner: owner,
