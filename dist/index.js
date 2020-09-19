@@ -23,22 +23,31 @@ async function run() {
             pull_number: pr.number
         });
 
-        console.log(data)
+        await processDiff(data.data.diff_url);
 
-        await client.issues.createComment({
+        /*await client.issues.createComment({
             owner: owner,
             repo: repo,
             //pull_number: pr.number,
             issue_number: github.context.issue.number,
             body: data.data.diff_url
-        });
-
-        core.debug(data);
-
+        });*/
 
     } catch (error) {
         core.setFailed(error.message);
     }
+}
+
+async function processDiff(diffUrl) {
+    const rawDiff = await fetch(diffUrl, {
+        headers: {
+            'Accept': 'application/vnd.github.v3.diff'
+        }
+    })
+
+    console.log(rawDiff)
+
+    return rawDiff;
 }
 
 run();
