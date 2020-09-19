@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const axios = require('axios');
+//const axios = require('axios');
 
 async function run() {
     try {
@@ -36,11 +36,6 @@ async function run() {
     } catch (error) {
         core.setFailed(error.message);
     }
-}
-
-async function processDiff(diffUrl) {
-
-    return res.data;
 }
 
 run();
