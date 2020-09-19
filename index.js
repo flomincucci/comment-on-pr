@@ -9,7 +9,7 @@ async function run() {
         //core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
         const pr = github.context.payload.pull_request;
         const owner = github.context.repo.owner;
-        const owner = github.context.repo.repo;
+        const repo= github.context.repo.repo;
         const data = await client.pulls.listFiles({
             owner: owner,
             repo: repo,
