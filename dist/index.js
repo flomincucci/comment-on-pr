@@ -24,6 +24,7 @@ async function run() {
             pull_number: pr.number
         });
 
+        console.log(data.data.diff_url);
         await processDiff(data.data.diff_url);
 
         /*await client.issues.createComment({
@@ -40,15 +41,14 @@ async function run() {
 }
 
 async function processDiff(diffUrl) {
-    const rawDiff = await axios.get(diffUrl, {
+    const res = await axios.get(diffUrl, {
         headers: {
             'Accept': 'application/vnd.github.v3.diff'
         }
     })
+    console.log(res);
 
-    console.log(rawDiff)
-
-    return rawDiff;
+    return res.data;
 }
 
 run();
