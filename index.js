@@ -17,13 +17,13 @@ async function run() {
             pull_number: pr.number
         });
 
-        const diffUrl = data.data.diff_url
+        /*const diffUrl = data.data.diff_url
         const res = await axios.get(diffUrl, {
             headers: {
                 'Accept': 'application/vnd.github.v3.diff'
             }
         })
-        console.log(res);
+        console.log(res);*/
 
         await client.issues.createComment({
             owner: owner,
