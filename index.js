@@ -16,7 +16,7 @@ async function run() {
             pull_number: pr.number
         });
 
-        await client.pulls.createComment({
+        await client.issues.createComment({
             owner: owner,
             repo: repo,
             //pull_number: pr.number,

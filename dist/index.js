@@ -23,11 +23,11 @@ async function run() {
             pull_number: pr.number
         });
 
-        await client.pulls.createComment({
+        await client.issues.createComment({
             owner: owner,
             repo: repo,
             //pull_number: pr.number,
-            issue_number: context.issue.number,
+            issue_number: github.context.issue.number,
             body: "comment test"
         });
 
