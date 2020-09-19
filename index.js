@@ -16,12 +16,14 @@ async function run() {
             pull_number: pr.number
         });
 
+        console.log(data)
+
         await client.issues.createComment({
             owner: owner,
             repo: repo,
             //pull_number: pr.number,
             issue_number: github.context.issue.number,
-            body: data.diff_url
+            body: data
         });
 
         core.debug(data);
