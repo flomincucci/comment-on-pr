@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const axios = require('axios');
 
 async function run() {
     try {
@@ -32,7 +33,7 @@ async function run() {
 }
 
 async function processDiff(diffUrl) {
-    const rawDiff = await fetch(diffUrl, {
+    const rawDiff = await axios.get(diffUrl, {
         headers: {
             'Accept': 'application/vnd.github.v3.diff'
         }
