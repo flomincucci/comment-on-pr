@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const fetch = require('node-fetch');
 
 async function run() {
     try {
@@ -20,7 +19,8 @@ async function run() {
         const diffUrl = data.data.diff_url
         const res = await fetch(diffUrl, {
             headers: {
-                'Accept': 'application/vnd.github.v3.diff'
+                'Accept': 'application/vnd.github.v3.diff',
+                'Authorization': `Bearer ${myToken}`
             }
         })
         console.log(res.json());
