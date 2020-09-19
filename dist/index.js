@@ -17,7 +17,7 @@ async function run() {
         const pr = github.context.payload.pull_request;
         const owner = github.context.repo.owner;
         const repo= github.context.repo.repo;
-        const data = await client.pulls.listFiles({
+        const data = await client.pulls.get({
             owner: owner,
             repo: repo,
             pull_number: pr.number
@@ -28,7 +28,7 @@ async function run() {
             repo: repo,
             //pull_number: pr.number,
             issue_number: github.context.issue.number,
-            body: "comment test"
+            body: data.diff_url
         });
 
         core.debug(data);
