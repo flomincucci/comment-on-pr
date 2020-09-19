@@ -7,7 +7,7 @@ require('./sourcemap-register.js');module.exports =
 
 const core = __webpack_require__(186);
 const github = __webpack_require__(438);
-const fetch = __webpack_require__(894);
+const fetch = __webpack_require__(467);
 
 async function run() {
     try {
@@ -5808,14 +5808,6 @@ function wrappy (fn, cb) {
 /***/ ((module) => {
 
 module.exports = eval("require")("encoding");
-
-
-/***/ }),
-
-/***/ 894:
-/***/ ((module) => {
-
-module.exports = eval("require")("fetch-node");
 
 
 /***/ }),
