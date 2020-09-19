@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const fetch = require('fetch-node');
 
 async function run() {
     try {
