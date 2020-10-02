@@ -18,7 +18,8 @@ async function run() {
         const pr = github.context.payload.pull_request;
         const owner = github.context.repo.owner;
         const repo = github.context.repo.repo;
-        const data = await client.pulls.get({
+
+        const prData = await client.pulls.get({
             owner: owner,
             repo: repo,
             pull_number: pr.number,
@@ -27,7 +28,8 @@ async function run() {
             }
         });
 
-        console.log(data);
+        console.log(typeof prData.data);
+        console.log(prData.data);
 
         /*await client.issues.createComment({
             owner: owner,
