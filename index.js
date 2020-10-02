@@ -27,17 +27,18 @@ async function run() {
         //let newFile = false;
         let file = '';
 
-        for ( let i=0; i < diffText.length; i++ ) {
+        for ( let i=1; i < diffText.length; i++ ) {
 
-            if(diffText[i].startsWith('---') && diffText[i+1].startsWith('+++')) {
-                file = diffText[i+1].substr(5);
+            if(diffText[i-1].startsWith('---') && diffText[i].startsWith('+++')) {
+                file = diffText[i].substr(6);
                 //newFile = diffText[i] == ' --- /dev/null';
             }
 
             line = (diffText[i].startsWith('@@'))? 0 : line + 1;
 
-            if(diffText[i].startsWith('-') && diffText[i+1].startsWith('+')) {
+            if(diffText[i].startsWith('+ ') && diffText[i-1].startsWith('- ')) {
                 // Create diff comment
+                console.log(diffText[i])
                 comments.push([line, file, `Here's a change in the file ${file}`])
             }
         }
@@ -48,9 +49,9 @@ async function run() {
             repo: repo,
             pull_number: pr.number,
             body: comments[0][2],
+            commit_id: pr.sha,
             path: comments[0][1],
-            position: comments[0][0],
-            commit_id: pr.sha});
+            position: comments[0][0]});
 
         /*return Promise.all(comments.map(async c => await client.pulls.createReviewComment({
             owner: owner,
