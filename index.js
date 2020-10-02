@@ -11,7 +11,7 @@ async function run() {
         const owner = github.context.repo.owner;
         const repo = github.context.repo.repo;
 
-        const prData = await client.pulls.get({
+        const prDiff = await client.pulls.get({
             owner: owner,
             repo: repo,
             pull_number: pr.number,
@@ -20,7 +20,13 @@ async function run() {
             }
         });
 
-        const diffText = prData.data.split('\n');
+        const prData = await client.pulls.get({
+            owner: owner,
+            repo: repo,
+            pull_number: pr.number,
+        });
+
+        const diffText = prDiff.data.split('\n');
         
         let comments = [];
         //let newFile = false;
