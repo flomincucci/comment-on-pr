@@ -39,7 +39,7 @@ async function run() {
             }
         }
 
-        console.log(pr.sha)
+        console.log(prData)
         await client.pulls.createReviewComment({
             owner: owner,
             repo: repo,
