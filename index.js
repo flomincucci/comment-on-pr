@@ -23,7 +23,6 @@ async function run() {
         const diffText = prData.data.split('\n');
         
         let comments = [];
-        let line = 0;
         //let newFile = false;
         let file = '';
 
@@ -34,16 +33,13 @@ async function run() {
                 //newFile = diffText[i] == ' --- /dev/null';
             }
 
-            line = (diffText[i].startsWith('@@'))? 0 : line + 1;
-
             if(diffText[i].startsWith('+ ') && diffText[i-1].startsWith('- ')) {
                 // Create diff comment
-                console.log(diffText[i])
-                comments.push([line, file, `Here's a change in the file ${file}`, i])
+                comments.push([i, file, `Here's a change in the file ${file}`])
             }
         }
 
-        console.log(comments)
+        console.log(pr.sha)
         await client.pulls.createReviewComment({
             owner: owner,
             repo: repo,
@@ -51,7 +47,8 @@ async function run() {
             body: comments[0][2],
             commit_id: pr.sha,
             path: comments[0][1],
-            line: comments[0][3]});
+            line: comments[0][0],
+            side: "RIGHT"});
 
         /*return Promise.all(comments.map(async c => await client.pulls.createReviewComment({
             owner: owner,
