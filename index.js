@@ -51,7 +51,7 @@ async function run() {
             repo: repo,
             pull_number: pr.number,
             body: comments[0][2],
-            commit_id: pr.sha,
+            commit_id: prData.data.head.sha,
             path: comments[0][1],
             line: comments[0][0],
             side: "RIGHT"});
