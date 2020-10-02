@@ -24,21 +24,21 @@ async function run() {
         
         let comments = [];
         let line = 0;
-        let newFile = false;
+        //let newFile = false;
         let file = '';
 
         for ( let i=0; i < diffText.length; i++ ) {
 
             if(diffText[i].startsWith('---') && diffText[i+1].startsWith('+++')) {
                 file = diffText[i+1].substr(4);
-                newFile = diffText[i] == ' --- /dev/null';
+                //newFile = diffText[i] == ' --- /dev/null';
             }
 
             line = (diffText[i].startsWith('@@'))? 0 : line + 1;
 
             if(diffText[i].startsWith('-') && diffText[i+1].startsWith('+')) {
                 // Create diff comment
-                comments.append([line, file, `Here's a change in the file ${file}`])
+                comments.push([line, file, `Here's a change in the file ${file}`])
             }
         }
 
