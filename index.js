@@ -20,8 +20,6 @@ async function run() {
             }
         });
 
-        console.log(pr)
-
         const diffText = prData.data.split('\n');
         
         let comments = [];
@@ -51,7 +49,7 @@ async function run() {
             body: c[2],
             path: c[1],
             line: c[0],
-            commit_id: pr.base.sha
+            commit_id: pr.sha
         })))
 
     } catch (error) {
