@@ -21,29 +21,21 @@ async function run() {
         const data = await client.pulls.get({
             owner: owner,
             repo: repo,
-            pull_number: pr.number
+            pull_number: pr.number,
+            mediaType: {
+                format: 'diff'
+            }
         });
 
-        const diffUrl = data.data.diff_url
-        const res = await fetch(diffUrl, {
-            headers: {
-                'Accept': 'application/vnd.github.v3.diff',
-                'Authorization': `Bearer ${myToken}`
-            }
-        })
-        if(res) {
-            const buffer = await res.buffer();
-            const diff = buffer.toString('utf-8');
-            console.log(diff);
+        console.log(data);
 
-            /*await client.issues.createComment({
-                owner: owner,
-                repo: repo,
-                //pull_number: pr.number,
-                issue_number: github.context.issue.number,
-                body: data.data.diff_url
-            });*/
-        }
+        /*await client.issues.createComment({
+            owner: owner,
+            repo: repo,
+            //pull_number: pr.number,
+            issue_number: github.context.issue.number,
+            body: data.data.diff_url
+        });*/
 
     } catch (error) {
         core.setFailed(error.message);
