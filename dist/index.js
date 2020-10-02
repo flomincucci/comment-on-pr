@@ -32,15 +32,17 @@ async function run() {
             }
         })
         if(res) {
-            console.log(res)
+            const buffer = await response.buffer();
+            const diff = buffer.toString('utf-8');
+            console.log(diff);
 
-            await client.issues.createComment({
+            /*await client.issues.createComment({
                 owner: owner,
                 repo: repo,
                 //pull_number: pr.number,
                 issue_number: github.context.issue.number,
                 body: data.data.diff_url
-            });
+            });*/
         }
 
     } catch (error) {
