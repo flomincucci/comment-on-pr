@@ -37,7 +37,7 @@ async function run() {
         for ( let i=0; i < diffText.length; i++ ) {
 
             if(diffText[i].startsWith('---') && diffText[i+1].startsWith('+++')) {
-                file = diffText[i+1].substr(4);
+                file = diffText[i+1].substr(5);
                 //newFile = diffText[i] == ' --- /dev/null';
             }
 
@@ -55,7 +55,7 @@ async function run() {
             pull_number: pr.number,
             body: c[2],
             path: c[1],
-            line: c[0],
+            position: c[0],
             commit_id: pr.sha
         })))
 
