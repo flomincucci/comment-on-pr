@@ -31,15 +31,18 @@ async function run() {
                 'Authorization': `Bearer ${myToken}`
             }
         })
-        console.log(res.json());
+        if(res) {
+            const diff = await res.json();
+            console.log(diff);
 
-        await client.issues.createComment({
-            owner: owner,
-            repo: repo,
-            //pull_number: pr.number,
-            issue_number: github.context.issue.number,
-            body: data.data.diff_url
-        });
+            await client.issues.createComment({
+                owner: owner,
+                repo: repo,
+                //pull_number: pr.number,
+                issue_number: github.context.issue.number,
+                body: data.data.diff_url
+            });
+        }
 
     } catch (error) {
         core.setFailed(error.message);

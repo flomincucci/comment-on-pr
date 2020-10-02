@@ -25,7 +25,8 @@ async function run() {
             }
         })
         if(res) {
-            console.log(res.json());
+            const diff = await res.json();
+            console.log(diff);
 
             await client.issues.createComment({
                 owner: owner,
