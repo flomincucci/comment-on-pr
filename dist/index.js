@@ -46,7 +46,7 @@ async function run() {
             if(diffText[i].startsWith('+ ') && diffText[i-1].startsWith('- ')) {
                 // Create diff comment
                 console.log(diffText[i])
-                comments.push([line, file, `Here's a change in the file ${file}`])
+                comments.push([line, file, `Here's a change in the file ${file}`, i])
             }
         }
 
@@ -58,7 +58,7 @@ async function run() {
             body: comments[0][2],
             commit_id: pr.sha,
             path: comments[0][1],
-            position: comments[0][0]});
+            line: comments[0][3]});
 
         /*return Promise.all(comments.map(async c => await client.pulls.createReviewComment({
             owner: owner,
