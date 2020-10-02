@@ -27,6 +27,8 @@ async function run() {
             }
         });
 
+        console.log(pr)
+
         const diffText = prData.data.split('\n');
         
         let comments = [];
