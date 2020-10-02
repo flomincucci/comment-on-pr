@@ -32,7 +32,7 @@ async function run() {
             }
         })
         if(res) {
-            const buffer = await response.buffer();
+            const buffer = await res.buffer();
             const diff = buffer.toString('utf-8');
             console.log(diff);
 
