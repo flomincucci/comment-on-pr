@@ -42,7 +42,17 @@ async function run() {
             }
         }
 
-        return Promise.all(comments.map(async c => await client.pulls.createReviewComment({
+        console.log(comments)
+        await client.pulls.createReviewComment({
+            owner: owner,
+            repo: repo,
+            pull_number: pr.number,
+            body: comments[0][2],
+            path: comments[0][1],
+            position: comments[0][0],
+            commit_id: pr.sha});
+
+        /*return Promise.all(comments.map(async c => await client.pulls.createReviewComment({
             owner: owner,
             repo: repo,
             pull_number: pr.number,
@@ -50,7 +60,7 @@ async function run() {
             path: c[1],
             position: c[0],
             commit_id: pr.sha
-        })))
+        })))*/
 
     } catch (error) {
         core.setFailed(error.message);
