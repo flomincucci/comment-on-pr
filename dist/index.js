@@ -48,12 +48,12 @@ async function run() {
 
             if(diffText[i].startsWith('+ ') && diffText[i-1].startsWith('- ')) {
                 // Create diff comment
-                comments.push([i, file, `Here's a change in the file ${file}`])
+                const lineDiff = findDiff(diffText[i-1].substr(1), diffText[i].substr(1))
+                comments.push([i, file, `The diff is ${lineDiff}`])
             }
         }
 
-        console.log(prData)
-        await client.pulls.createReviewComment({
+        /*await client.pulls.createReviewComment({
             owner: owner,
             repo: repo,
             pull_number: pr.number,
@@ -61,21 +61,31 @@ async function run() {
             commit_id: prData.data.head.sha,
             path: comments[0][1],
             line: comments[0][0],
-            side: "RIGHT"});
+            side: "RIGHT"});*/
 
-        /*return Promise.all(comments.map(async c => await client.pulls.createReviewComment({
+        return Promise.all(comments.map(async c => await client.pulls.createReviewComment({
             owner: owner,
             repo: repo,
             pull_number: pr.number,
+            commit_id: prData.data.head.sha,
             body: c[2],
             path: c[1],
-            position: c[0],
-            commit_id: pr.sha
-        })))*/
+            line: comments[0],
+            side: "RIGHT"
+        })))
 
     } catch (error) {
         core.setFailed(error.message);
     }
+}
+
+function findDiff(str1, str2){ 
+    let diff= "";
+    str2.split('').forEach(function(val, i){
+        if (val != str1.charAt(i))
+            diff += val ;         
+    });
+    return diff;
 }
 
 run();
