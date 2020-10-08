@@ -53,16 +53,6 @@ async function run() {
             }
         }
 
-        /*await client.pulls.createReviewComment({
-            owner: owner,
-            repo: repo,
-            pull_number: pr.number,
-            body: comments[0][2],
-            commit_id: prData.data.head.sha,
-            path: comments[0][1],
-            line: comments[0][0],
-            side: "RIGHT"});*/
-
         return Promise.all(comments.map(async c => await client.pulls.createReviewComment({
             owner: owner,
             repo: repo,
@@ -80,9 +70,11 @@ async function run() {
 }
 
 function findDiff(str1, str2){ 
-    let diff= "";
-    str2.split('').forEach(function(val, i){
-        if (val != str1.charAt(i))
+    let diff = "";
+    const orig = (str2.length > str1.length)? str1 : str2;
+    const dest = (str2.length > str1.length)? str2 : str1;
+    dest.split('').forEach(function(val, i){
+        if (val != orig.charAt(i))
             diff += val ;         
     });
     return diff;
