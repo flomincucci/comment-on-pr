@@ -63,7 +63,7 @@ async function run() {
             commit_id: prData.data.head.sha,
             body: c[2],
             path: c[1],
-            line: comments[0],
+            line: c[0],
             side: "RIGHT"
         })))
 
